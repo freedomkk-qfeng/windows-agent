@@ -225,4 +225,4 @@ go build -o windows-agent.exe
 
 
 #### TODO
-增加完事 sqlserver 的监控项
+增加完善 sqlserver 的监控项

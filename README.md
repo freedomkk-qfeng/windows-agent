@@ -207,7 +207,6 @@ go build -o windows-agent.exe
 .\windows-agent.exe
 2016/08/08 13:44:31 cfg.go:96: read config file: cfg.json successfully
 2016/08/08 13:44:31 var.go:31: logging on windows.log
-2016/08/08 13:44:31 http.go:64: listening :1988
 ```
 等待1-2分钟，观察输出，确认运行正常
 使用 [nssm](https://nssm.cc/) 注册为 Windows 服务。

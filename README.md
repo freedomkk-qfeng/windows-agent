@@ -161,7 +161,7 @@ MsSQL
         "backdoor": false
     },
     "collector": {
-        "ifacePrefix": ["Intel"] //所采集的网卡描述信息关键词，例如Intel(R)PRO/1000 MT NetworkConnection
+        "ifacePrefix": ["本地连接"] //所采集的网卡名，注意 falcon 默认不支持中文名的tag，因此需要修改 graph 表的编码为 uft8
     },
     "ignore": {
         "cpu.busy": true,

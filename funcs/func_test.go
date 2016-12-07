@@ -34,7 +34,7 @@ func Test_disk(t *testing.T) {
 }
 
 func Test_net_status(t *testing.T) {
-	var ifacePrefix = []string{"Intel"}
+	var ifacePrefix = []string{"本地连接", "Loop"}
 	netifs, err := net_status(ifacePrefix)
 	t.Log(netifs)
 	t.Error(err)
@@ -55,9 +55,19 @@ func Test_TestIOCounters(t *testing.T) {
 }
 
 func Test_Process(t *testing.T) {
-	//	p, err := Processes()
-	//	t.Log(p)
-	//	t.Error(err)
+	p, err := Processes()
+	t.Log(p)
+	t.Error(err)
+	cnt := 0
+	m := map[int]string{
+		1: "smss.exe",
+	}
+	for i := 0; i < len(p); i++ {
+		if is_a(p[i], m) {
+			cnt++
+		}
+	}
+	t.Log(cnt)
 }
 func Test_tcpip(t *testing.T) {
 	ret, _ := TcpipCounters()

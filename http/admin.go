@@ -12,8 +12,7 @@ func configAdminRoutes() {
 	http.HandleFunc("/workdir", func(w http.ResponseWriter, r *http.Request) {
 		RenderDataJson(w, file.SelfDir())
 	})
-
-	http.HandleFunc("/ips", func(w http.ResponseWriter, r *http.Request) {
-		RenderDataJson(w, g.TrustableIps())
+	http.HandleFunc("/config", func(w http.ResponseWriter, r *http.Request) {
+		RenderDataJson(w, g.Config())
 	})
 }

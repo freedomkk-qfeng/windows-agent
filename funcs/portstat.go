@@ -2,8 +2,9 @@ package funcs
 
 import (
 	"fmt"
-
+	"log"
 	"net"
+	"strconv"
 
 	"github.com/freedomkk-qfeng/windows-agent/g"
 	"github.com/open-falcon/common/model"
@@ -14,13 +15,27 @@ const (
 	maxTCPPort = 65535
 )
 
-func IsTCPPortUsed(port int64) bool {
+func IsTCPPortV4Used(port int64) bool {
 	if port < minTCPPort || port > maxTCPPort {
 		return false
 	}
+	connString := "127.0.0.1:" + strconv.FormatInt(port, 10)
+	conn, err := net.Listen("tcp", connString)
+	log.Println(connString, conn, err)
+	if err != nil {
+		return true
+	}
+	conn.Close()
+	return false
+}
 
-	conn, err := net.Listen("tcp", ":"+string(port))
-
+func IsTCPPortV6Used(port int64) bool {
+	if port < minTCPPort || port > maxTCPPort {
+		return false
+	}
+	connString := "[::1]:" + strconv.FormatInt(port, 10)
+	conn, err := net.Listen("tcp", connString)
+	log.Println(connString, conn, err)
 	if err != nil {
 		return true
 	}
@@ -37,7 +52,7 @@ func PortMetrics() (L []*model.MetricValue) {
 
 	for i := 0; i < sz; i++ {
 		tags := fmt.Sprintf("port=%d", reportPorts[i])
-		if IsTCPPortUsed(reportPorts[i]) {
+		if IsTCPPortV4Used(reportPorts[i]) || IsTCPPortV6Used(reportPorts[i]) {
 			L = append(L, GaugeValue(g.NET_PORT_LISTEN, 1, tags))
 		} else {
 			L = append(L, GaugeValue(g.NET_PORT_LISTEN, 0, tags))

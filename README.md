@@ -52,7 +52,7 @@ Windows Metrics
 |tcpip.conestablished     |GAUGE|/|tcp connect established |
 |tcpip.conreset    |COUNTER|/|tcp connect reset|
 |net.port.listen    |GAUGE|port=port|port alive|
-|proc.num    |GAUGE|cmdline=proccmdline,name=procname|proc/cmdline number|
+|proc.num    |GAUGE|cmdline=cmdline,proc=proc|proc number|
 
 
 IIs Metrics
@@ -198,6 +198,8 @@ go get ./...
 go build -o windows-agent.exe
 
 ```
+#### Release 版本
+可以从这里直接下载编译好的 [Release 版本](https://github.com/freedomkk-qfeng/windows-agent/releases)
 
 #### 运行
 以下命令需在管理员模式下运行开 cmd 或 Powershell
@@ -207,6 +209,7 @@ go build -o windows-agent.exe
 .\windows-agent.exe
 2016/08/08 13:44:31 cfg.go:96: read config file: cfg.json successfully
 2016/08/08 13:44:31 var.go:31: logging on windows.log
+2016/08/08 13:44:31 http.go:64: listening :1988
 ```
 等待1-2分钟，观察输出，确认运行正常
 使用 [nssm](https://nssm.cc/) 注册为 Windows 服务。

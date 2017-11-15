@@ -52,7 +52,7 @@ Windows Metrics
 |tcpip.conestablished     |GAUGE|/|tcp connect established |
 |tcpip.conreset    |COUNTER|/|tcp connect reset|
 |net.port.listen    |GAUGE|port=port|port alive|
-|proc.num    |GAUGE|cmdline=cmdline,proc=proc|proc number|
+|proc.num    |GAUGE|cmdline=cmdline,name=name|proc number|
 
 
 IIs Metrics

@@ -40,7 +40,9 @@
         "backdoor": false
     },
     "collector": {
-        "ifacePrefix": ["Intel"]
+        "ifacePrefix": ["网络"]
+    },
+	"default_tags": {
     },
     "ignore": {
         "cpu.busy": true

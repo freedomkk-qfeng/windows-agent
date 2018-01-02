@@ -2,7 +2,6 @@ package funcs
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"strconv"
 
@@ -15,31 +14,33 @@ const (
 	maxTCPPort = 65535
 )
 
-func IsTCPPortV4Used(port int64) bool {
+func IsTCPPortUsed(addr string, port int64) bool {
 	if port < minTCPPort || port > maxTCPPort {
 		return false
 	}
-	connString := "127.0.0.1:" + strconv.FormatInt(port, 10)
+	connString := addr + strconv.FormatInt(port, 10)
 	conn, err := net.Listen("tcp", connString)
-	log.Println(connString, conn, err)
 	if err != nil {
+		//		log.Println(connString, conn, err)
 		return true
 	}
 	conn.Close()
 	return false
 }
 
-func IsTCPPortV6Used(port int64) bool {
-	if port < minTCPPort || port > maxTCPPort {
-		return false
-	}
-	connString := "[::1]:" + strconv.FormatInt(port, 10)
-	conn, err := net.Listen("tcp", connString)
-	log.Println(connString, conn, err)
-	if err != nil {
+func CheckTCPPortUsed(port int64) bool {
+	if IsTCPPortUsed("0.0.0.0:", port) {
 		return true
 	}
-	conn.Close()
+	if IsTCPPortUsed("127.0.0.1:", port) {
+		return true
+	}
+	if IsTCPPortUsed("[::1]:", port) {
+		return true
+	}
+	if IsTCPPortUsed("[::]:", port) {
+		return true
+	}
 	return false
 }
 
@@ -52,7 +53,7 @@ func PortMetrics() (L []*model.MetricValue) {
 
 	for i := 0; i < sz; i++ {
 		tags := fmt.Sprintf("port=%d", reportPorts[i])
-		if IsTCPPortV4Used(reportPorts[i]) || IsTCPPortV6Used(reportPorts[i]) {
+		if CheckTCPPortUsed(reportPorts[i]) {
 			L = append(L, GaugeValue(g.NET_PORT_LISTEN, 1, tags))
 		} else {
 			L = append(L, GaugeValue(g.NET_PORT_LISTEN, 0, tags))

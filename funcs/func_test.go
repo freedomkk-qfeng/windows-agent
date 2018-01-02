@@ -41,10 +41,8 @@ func Test_net_status(t *testing.T) {
 }
 
 func Test_IsTCPPortUsed(t *testing.T) {
-	res := IsTCPPortV4Used(135)
-	t.Log("V4:", res)
-	res = IsTCPPortV6Used(135)
-	t.Log("v6:", res)
+	res := CheckTCPPortUsed(1988)
+	t.Log(res)
 }
 
 func Test_TestIOCounters(t *testing.T) {

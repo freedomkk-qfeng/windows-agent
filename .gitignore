@@ -3,10 +3,9 @@
 /cfg.json
 /agent
 /var
-/falcon-agent*
-/falcon_agent
+/windows-agent*
 .DS_Store
 *.iml
 *.idea
 /gitversion
-
+windows.log

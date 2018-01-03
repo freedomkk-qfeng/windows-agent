@@ -163,6 +163,8 @@ MsSQL
     "collector": {
         "ifacePrefix": ["本地连接"] //所采集的网卡名，注意 falcon 默认不支持中文名的tag，因此需要修改 graph 表的编码为 uft8
     },
+	"default_tags": {
+    },
     "ignore": {
         "cpu.busy": true,
     }

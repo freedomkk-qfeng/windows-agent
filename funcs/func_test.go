@@ -8,7 +8,7 @@ const (
 	server   = "192.168.11.128"
 	port     = 1433
 	user     = "sa"
-	password = "ecNU10@$"
+	password = "123456"
 	encrypt  = "disable"
 )
 

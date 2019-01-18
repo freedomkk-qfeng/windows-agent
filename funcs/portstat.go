@@ -28,20 +28,38 @@ func IsTCPPortUsed(addr string, port int64) bool {
 	return false
 }
 
+func IsTCPPortUsed2(ip string, port int64) bool {
+	if port < minTCPPort || port > maxTCPPort {
+		return false
+	}
+	connStr := ip + ":" + strconv.FormatInt(port, 10)
+	tcpAddr, err := net.ResolveTCPAddr("tcp", connStr)
+	if err != nil {
+		return false
+	}
+	conn, err := net.DialTCP("tcp", nil, tcpAddr)
+	if err != nil {
+		return false
+	}
+	_ = conn.Close()
+	return true
+}
+
 func CheckTCPPortUsed(port int64) bool {
-	if IsTCPPortUsed("0.0.0.0:", port) {
-		return true
-	}
-	if IsTCPPortUsed("127.0.0.1:", port) {
-		return true
-	}
-	if IsTCPPortUsed("[::1]:", port) {
-		return true
-	}
-	if IsTCPPortUsed("[::]:", port) {
-		return true
-	}
-	return false
+	//if IsTCPPortUsed("0.0.0.0:", port) {
+	//	return true
+	//}
+	//if IsTCPPortUsed("127.0.0.1:", port) {
+	//	return true
+	//}
+	//if IsTCPPortUsed("[::1]:", port) {
+	//	return true
+	//}
+	//if IsTCPPortUsed("[::]:", port) {
+	//	return true
+	//}
+	//return false
+	return IsTCPPortUsed2("127.0.0.1", port)
 }
 
 func PortMetrics() (L []*model.MetricValue) {
